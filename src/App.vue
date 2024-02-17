@@ -1,26 +1,20 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <NavBar/>
+    <!-- <LogIn 
+      @login='logIn' 
+      v-if="!isLoggedIn"/>
+    <HomeComponent 
+      :propprojects="Projects" 
+      :home-button="isHomeTriggered" 
+      v-else/> -->
+    <router-view></router-view>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+// import LogIn from './components/LogIn.vue'
+import NavBar from './components/NavBar.vue'
+// import HomeComponent from './components/HomeComponent.vue'
+// import './style.css'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
