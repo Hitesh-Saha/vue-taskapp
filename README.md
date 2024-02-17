@@ -1,7 +1,7 @@
 # vue-taskapp
 
 ## Project setup
-`
+
 Clone the repository.
 ```
 npm install
