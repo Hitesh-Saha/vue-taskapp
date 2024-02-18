@@ -11,7 +11,7 @@
             </div>
         </div> -->
     <div class="welcomeUser">
-      <h1>Welcome {{ store.getters['authMod/getName'] }}!!!</h1>
+      <h1>Welcome {{ username }}!!!</h1>
       <a  href="#createproject" v-if="!isTaskView" class="tooltipContainer">
         <div class="ico-btn">
           <span class="ico-btn__plus"></span>
@@ -26,7 +26,7 @@
       </a>
     </div>
     <router-view></router-view>
-    <CreateProject @submit-project="submitProject"/>
+    <CreateProject />
     <AddTask @submit-task="SubmitTask" :projectkey="projectKey" />
     <BaseModal/>
     <!-- <ProjectView
@@ -49,35 +49,37 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeMount } from "vue";
+import { ref, onMounted,computed, watch } from "vue";
 // import ProjectView from "./ProjectView.vue";
 import CreateProject from "../components/CreateProject.vue";
 // import TaskView from "./TaskView.vue";
 import AddTask from "../components/AddTask.vue";
 import store from "@/store";
 import BaseModal from "@/components/BaseModal.vue";
+import { useRoute } from "vue-router";
 
-const isTaskView = ref(false);
+// const isTaskView = ref(false);
 const projectKey = ref(null)
-const projects = ref([])
+// const projects = ref([])
+const route = useRoute()
 // const deleteConfirmation = ref(false)
 
-onMounted(() => {
-  // const projects = JSON.parse(localStorage.getItem("projects"));
-  // console.log(projects)
-  // store.commit('projectMod/addAllProject', projects)
-    // const projects = store.getters["projectMod/getProjects"];
-    isTaskView.value = store.getters["isTaskView"]
-  }
-)
-const submitProject = (data) => {
-  // if (projects.value === null) {
-  //   projects.value = [];
-  // }
-  // projects.value.push(data);
-  store.commit('projectMod/addProject', data)
-  // localStorage.setItem("projects", JSON.stringify(projects.value));
-}
+// onMounted(() => {
+//   // const projects = JSON.parse(localStorage.getItem("projects"));
+//   // console.log(projects)
+//   // store.commit('projectMod/addAllProject', projects)
+//     // const projects = store.getters["projectMod/getProjects"];
+//     isTaskView.value = store.getters["isTaskView"]
+//   }
+// )
+// const submitProject = (data) => {
+//   // if (projects.value === null) {
+//   //   projects.value = [];
+//   // }
+//   // projects.value.push(data);
+//   store.commit('projectMod/addProject', data)
+//   // localStorage.setItem("projects", JSON.stringify(projects.value));
+// }
 
 // const DeleteProject = (index) => {
 //   projectKey.value= index
@@ -112,17 +114,25 @@ const submitProject = (data) => {
 //   store.commit('togglingTaskView',false);
 //   isTaskView.value = false
 // }
-const SubmitTask = (task) => {
-  projects.value[task.id].Tasks.push({
-    name: task.name,
-    status: task.status
-  });
-  localStorage.setItem("projects", JSON.stringify(projects.value));
-}
+// const SubmitTask = (task) => {
+//   projects.value[task.id].Tasks.push({
+//     name: task.name,
+//     status: task.status
+//   });
+//   localStorage.setItem("projects", JSON.stringify(projects.value));
+// }
 // const DeleteTask = (obj) => {
 //   projects.value[obj.id].Tasks.splice(obj.index, 1);
 //   localStorage.setItem("projects", JSON.stringify(projects.value));
 // }
+const username = computed(() => { return store.getters['authMod/getName'] })
+const isTaskView = computed(() => { return store.getters['isTaskView'] })
+
+// watch(route.params, (newVal) => {
+//   if(newVal !== null || undefined) {
+//     store.commit('togglingTaskView',true);
+//   }
+// })
 </script>
 
 <style scoped>

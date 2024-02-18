@@ -4,7 +4,7 @@ const projectMutations = {
             state.projects = []
         }
         state.projects.push(payload);
-        localStorage.setItem("projects", JSON.stringify(state.projects));
+        // localStorage.setItem("projects", JSON.stringify(state.projects));
     }
 }
 export default projectMutations

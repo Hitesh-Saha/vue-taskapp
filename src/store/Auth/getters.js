@@ -3,7 +3,12 @@ const authGetters = {
         return state.isLoggedIn
     },
     getName(state) {
-        return state.username
+        if(state.username != '') {
+            return state.username
+        }
+        else {
+            return 'Hitesh'
+        }
     }
 }
 export default authGetters

@@ -69,7 +69,7 @@
 <script setup>
 import store from '@/store';
 import {ref, defineProps, onMounted} from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const props = defineProps(['projectlist', 'projectkey'])
 // const projectTitle = ref(props.projectlist.Name);
@@ -81,6 +81,7 @@ const taskName= ref('');
 const taskStatus= ref('');
 const taskIndex= ref(null);
 const route = useRoute();
+const router = useRouter();
 const projectId = ref('');
 const project = ref({});
 
@@ -94,9 +95,9 @@ const project = ref({});
 // const DeleteProject = () => {
 //     this.$emit('delete-project',props.projectkey)
 // }
-// const BackToHome = () => {
-//     this.$emit('back-home')
-// }
+const BackToHome = () => {
+    router.push('/projects')
+}
 // const deleteTask = (index) => {
 //     this.$emit('delete-task',{
 //         id: props.projectkey,
@@ -119,9 +120,8 @@ const project = ref({});
 //     taskEditable.value = false
 // }
 onMounted(() => {
-    console.log('hey')
+    store.commit('togglingTaskView',true);
     projectId.value = route.params.projectId;
-    console.log(projectId.value)
     const projects = store.getters["projectMod/getAllProjects"];
     const selectedProject = projects.filter((item) => {
         return item.id.trim() == projectId.value.trim()

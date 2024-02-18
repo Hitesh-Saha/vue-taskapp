@@ -3,8 +3,8 @@
       <div class="modal-box relative">
         <a href="#" class="btn btn-sm btn-circle absolute right-2 top-2" @click="closeModal">✕</a>
         <h3 class="font-bold text-lg">Create a new Project</h3>
-        <input v-model="projectTitle" @keyup="validate" type="text" placeholder="Enter Project Title" class="input input-bordered input-sm w-full max-w-sm" />
-        <textarea v-model="projectDescription" class="textarea textarea-bordered w-full max-w-sm" placeholder="Enter Description..."></textarea>
+        <input v-model="projectTitle" type="text" placeholder="Enter Project Title" class="input input-bordered input-sm w-full max-w-sm text-white" />
+        <textarea v-model="projectDescription" class="textarea textarea-bordered w-full max-w-sm text-white" placeholder="Enter Description..."></textarea>
         <div class="modal-action">
           <a href="#" class="btn" @click="submitProject">Submit</a>
         </div>
@@ -13,23 +13,21 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from 'vue';
+import store from '@/store';
+import { ref } from 'vue';
 
-const emit = defineEmits(['submit-project']);
 const projectTitle = ref('');
 const projectDescription = ref('');
 
 const closeModal = () => {
   projectTitle.value = ''
   projectDescription.value = ''
-  // emit('onCloseModal')
 }
 const submitProject = () => {
   if(projectTitle.value.trim() === '' || projectDescription.value.trim() === ''){
     return alert('Incomplete Information');
   } else {
-    emit('submit-project',{
-      id: new Date().getTime().toString(),
+    store.dispatch('projectMod/addProject', {
       title: projectTitle.value,
       description: projectDescription.value,
       tasks: []

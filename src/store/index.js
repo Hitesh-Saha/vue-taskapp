@@ -26,8 +26,6 @@ const store = createStore({
     mutations: {
         togglingTaskView(state,payload) {
             state.isTaskView = payload
-            console.log('triggering')
-            console.log(state.isTaskView)
         },
         // setToken(state,payload) {
         //     state.token = payload.token

@@ -1,6 +1,6 @@
 <template>
     <div class="projectList">
-      <div v-if="projectList === null || projectList.length === 0" class='NoProject'>
+      <div v-if="projectList === null" class='NoProject'>
         <div>No Projects</div>
       </div>
       <div v-else v-for="project in projectList" :key="project.id">
@@ -20,7 +20,7 @@ import store from '@/store';
 import { useRouter } from 'vue-router';
 
 const emit = defineEmits(['view-task', 'delete-project']);
-const projectList = ref([]);
+// const projectList = ref([]);
 const router = useRouter();
 
 const deleteProject = (index) =>{
@@ -29,15 +29,18 @@ const deleteProject = (index) =>{
 }
 const viewTask = (id) => {
   // emit('view-task',index)
-  store.commit('togglingTaskView',true);
+  // store.commit('togglingTaskView',true);
   router.push('/projects/'+id)
 }
 const editProject = (id) => {
   EditModal.showModal()
 }
 onMounted(async () => {
-  projectList.value = store.getters["projectMod/getAllProjects"];
+  // projectList.value = store.getters["projectMod/getAllProjects"];
+  store.commit('togglingTaskView',false);
 })
+
+const projectList = computed(() => {return store.getters["projectMod/getAllProjects"]})
 </script>
 
 <style scoped>
