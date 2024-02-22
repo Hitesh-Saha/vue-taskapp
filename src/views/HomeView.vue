@@ -49,7 +49,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted,computed, watch } from "vue";
+import { ref, onMounted, computed, watch, onBeforeMount } from "vue";
 // import ProjectView from "./ProjectView.vue";
 import CreateProject from "../components/CreateProject.vue";
 // import TaskView from "./TaskView.vue";
@@ -133,6 +133,9 @@ const isTaskView = computed(() => { return store.getters['isTaskView'] })
 //     store.commit('togglingTaskView',true);
 //   }
 // })
+onBeforeMount(() => {
+  store.commit('projectMod/setAllProjects')
+})
 </script>
 
 <style scoped>

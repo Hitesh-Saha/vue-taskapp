@@ -119,10 +119,10 @@ const BackToHome = () => {
 //     })
 //     taskEditable.value = false
 // }
-onMounted(() => {
+onMounted(async() => {
     store.commit('togglingTaskView',true);
     projectId.value = route.params.projectId;
-    const projects = store.getters["projectMod/getAllProjects"];
+    const projects = await store.getters["projectMod/getAllProjects"];
     const selectedProject = projects.filter((item) => {
         return item.id.trim() == projectId.value.trim()
     })

@@ -40,7 +40,7 @@ const submitTask = () => {
       name: task.value,
       status: status.value,
       id: new Date().getTime().toString(),
-      projectId: 
+      projectId: ''
     })
     cancelFunction()
   }
